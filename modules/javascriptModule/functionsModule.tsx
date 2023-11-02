@@ -7,3 +7,21 @@
  *
  * example:
  */
+export const functionArrowExample = () => {
+    const x = 20;
+    return {
+        x: 10,
+        foo: () => console.log(this.x),
+        bar: () => console.log(this.x + 10),
+    }
+}
+
+export function functionExampleOne() {
+    const x = 20;
+    return {
+        x: 10,
+        foo: () => console.log(this.x),
+        bar: () => console.log(this.x + 10),
+    }
+}
+
