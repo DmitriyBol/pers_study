@@ -27,3 +27,21 @@ export const AsyncExampleOne = () => {
         </div>
     )
 }
+
+type DataPropsType = {
+    userId: number;
+    body: string;
+    title: string;
+    id: number;
+}
+
+export const AsyncExampleTwoWithFakeData = ({...props}: Partial<DataPropsType>) => {
+    console.log(props)
+    return (
+        <div>
+            <h4>{props.userId}{' -- '}{props.id}</h4>
+            <h2>{props.title}</h2>
+            <p>{props.body}</p>
+        </div>
+    )
+}

@@ -4,7 +4,7 @@
  *
  * Приоритет - синхронные таски, микротаски, макротаски
  */
-export const EventsExampleOne = () => {
+export const eventsExampleOne = () => {
     // 1 3 5 2 4
     /**
      * 1 - синхронная операция
@@ -22,7 +22,7 @@ export const EventsExampleOne = () => {
     console.log(5);
 }
 
-export const EventsExampleTwo = () => {
+export const eventsExampleTwo = () => {
     // 2 4 3 1
     /**
      * 2 - сначала выполнится резолв промиса
@@ -37,4 +37,8 @@ export const EventsExampleTwo = () => {
     })
     p.then(() => console.log(3));
     console.log(4);
+}
+
+export const summaryExample = (a?: number, b?: number): number => {
+    return a + b;
 }

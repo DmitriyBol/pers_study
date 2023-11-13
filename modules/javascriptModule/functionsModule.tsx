@@ -12,7 +12,7 @@ export const functionArrowExample = () => {
     return {
         x: 10,
         foo: () => console.log(this.x),
-        bar: () => console.log(this.x + 10),
+        bar: function func() {console.log(this.x)},
     }
 }
 
@@ -21,7 +21,7 @@ export function functionExampleOne() {
     return {
         x: 10,
         foo: () => console.log(this.x),
-        bar: () => console.log(this.x + 10),
+        bar: function func() {console.log(this.x)},
     }
 }
 
