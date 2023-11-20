@@ -36,7 +36,6 @@ type DataPropsType = {
 }
 
 export const AsyncExampleTwoWithFakeData = ({...props}: Partial<DataPropsType>) => {
-    console.log(props)
     return (
         <div>
             <h4>{props.userId}{' -- '}{props.id}</h4>

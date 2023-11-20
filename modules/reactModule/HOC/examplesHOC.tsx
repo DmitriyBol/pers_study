@@ -10,6 +10,7 @@ const FETCH_URL_STRICT = 'https://jsonplaceholder.typicode.com/posts/1';
 type PropsType = {
     componentOrFunction: Function | React.Component,
     needFakeData?: boolean,
+    label?: string,
 }
 
 /**
@@ -20,7 +21,8 @@ type PropsType = {
  */
 export const ExamplesHOC = ({
     componentOrFunction,
-    needFakeData
+    needFakeData,
+    label
 }: PropsType) => {
     const [answer, setAnswer] = useState<any>();
     const [fakeData, setFakeData] = useState({});
@@ -45,6 +47,7 @@ export const ExamplesHOC = ({
     if (React.isValidElement(componentOrFunction)) {
         return (
             <div className='component'>
+                <span className='label'>{label}</span>
                 {needFakeData ? componentWithFakeData() : componentOrFunction}
             </div>
         )
@@ -52,6 +55,7 @@ export const ExamplesHOC = ({
 
     return (
         <div className='function'>
+            <span className='label'>{label}</span>
             <button typeof='button' onClick={() => {
                 setAnswer(componentOrFunction);
             }}>{answer ? answer : 'Click me!'}</button>
