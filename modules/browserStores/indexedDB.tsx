@@ -1,5 +1,7 @@
 import {SetStateAction, useEffect, useState} from "react";
 
+import './browserStoresGlobal.css';
+
 export const INDEXED_DB_NAME = 'TEST_BASE';
 export const INDEXED_INPUT_STORE = 'INPUTS';
 

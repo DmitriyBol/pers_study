@@ -4,8 +4,8 @@ import {generatorExampleOne} from "../modules/javascriptModule/generatorModule";
 import {UseStateHookExample} from "../modules/reactModule/hooksModule";
 import {summaryExample} from "../modules/javascriptModule/eventLoopModule";
 import {AsyncExampleTwoWithFakeData} from "../modules/javascriptModule/asyncModule";
-import {CookieStoreExample} from "../modules/browerStores/cookieStore";
-import {IndexedDBExample} from "../modules/browerStores/indexedDB";
+import {CookieStoreExample} from "../modules/browserStores/cookieStore";
+import {IndexedDBExample} from "../modules/browserStores/indexedDB";
 
 function App() {
   return (
