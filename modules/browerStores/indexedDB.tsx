@@ -1,11 +1,14 @@
-import {useState} from "react";
+import {SetStateAction, useEffect, useState} from "react";
 
-const openDataBase = window.indexedDB.open('TEST_BASE', 1);
+export const INDEXED_DB_NAME = 'TEST_BASE';
+export const INDEXED_INPUT_STORE = 'INPUTS';
+
+const openDataBase = window.indexedDB.open(INDEXED_DB_NAME, 1);
 openDataBase.onupgradeneeded = () => {
     const db = openDataBase.result;
 
-    if (!db.objectStoreNames.contains('INPUTS')) {
-        db.createObjectStore("INPUTS", {keyPath: 'inputs1', autoIncrement: true});
+    if (!db.objectStoreNames.contains(INDEXED_INPUT_STORE)) {
+        db.createObjectStore(INDEXED_INPUT_STORE, {keyPath: 'inputs1', autoIncrement: true});
     }
 }
 
@@ -14,16 +17,22 @@ export const IndexedDBExample = () => {
     const [inputValueText, setInputValueText] = useState('');
     const [indexDbSearch, setIndexDbSearch] = useState('');
 
-    const inputOnChangeHandle = (e) => {
-        setInputKeyText(e.target.value)
-    }
+    useEffect(() => {
+        return () => {
+            let deleteRequest = indexedDB.deleteDatabase(INDEXED_DB_NAME);
 
-    const inputOnChangeHandleTwo = (e) => {
-        setInputValueText(e.target.value)
-    }
+            deleteRequest.onsuccess = () => {
+                console.log('database is cleared!');
+            }
 
-    const inputOnChangeHandleThree = (e) => {
-        setIndexDbSearch(e.target.value)
+            deleteRequest.onerror = () => {
+                console.log('couldn\'t delete the base')
+            }
+        }
+    }, [])
+
+    const inputChangeDirectState = (event, stateFunction: SetStateAction<any>) => {
+        stateFunction(event.target.value);
     }
 
     const checkDbHandler = () => {
@@ -34,8 +43,8 @@ export const IndexedDBExample = () => {
         }
         console.log('indexDB', indexDB);
 
-        const transaction = indexDB.transaction('INPUTS', "readwrite");
-        const dbObjectByKey = transaction.objectStore('INPUTS');
+        const transaction = indexDB.transaction(INDEXED_INPUT_STORE, "readwrite");
+        const dbObjectByKey = transaction.objectStore(INDEXED_INPUT_STORE);
 
         console.log('dbObjectByKey', dbObjectByKey);
     }
@@ -47,8 +56,8 @@ export const IndexedDBExample = () => {
         }
         const indexDB = openDataBase.result;
 
-        const transaction = indexDB.transaction('INPUTS', "readwrite");
-        const dbObjectByKey = transaction.objectStore('INPUTS');
+        const transaction = indexDB.transaction(INDEXED_INPUT_STORE, "readwrite");
+        const dbObjectByKey = transaction.objectStore(INDEXED_INPUT_STORE);
 
         console.log('dbObjectByKey', dbObjectByKey)
 
@@ -66,11 +75,10 @@ export const IndexedDBExample = () => {
         }
     }
 
-    const lookUpByKey = () => {
-        if (!indexDbSearch) return;
+    const lookUpBy = () => {
         const indexDB = openDataBase.result;
-        const transaction = indexDB.transaction(indexDbSearch, "readwrite");
-        const dbObjectByKey = transaction.objectStore(indexDbSearch);
+        const transaction = indexDB.transaction(INDEXED_INPUT_STORE, "readwrite");
+        const dbObjectByKey = transaction.objectStore(INDEXED_INPUT_STORE);
 
         const getData = dbObjectByKey.getAll();
 
@@ -83,15 +91,21 @@ export const IndexedDBExample = () => {
         }
     }
 
+    const lookUpByKey = () => {
+        if (!indexDbSearch) return;
+        console.log('123132');
+    }
+
     return (
         <>
-            <input type="text" onChange={(e) => inputOnChangeHandle(e)}/>
-            <input type="text" onChange={(e) => inputOnChangeHandleTwo(e)}/>
+            <input type="text" onChange={(e) => inputChangeDirectState(e, setInputKeyText)} value={inputKeyText}/>
+            <input type="text" onChange={(e) => inputChangeDirectState(e, setInputValueText)} value={inputValueText}/>
             <div>Key text: {inputKeyText}</div>
             <div>Value text: {inputValueText}</div>
             <button type='button' onClick={createIndexedObject}>Create indexed element</button>
             <button type='button' onClick={checkDbHandler}>Display current indexed DB</button>
-            <input type="text" onChange={(e) => inputOnChangeHandleThree(e)}/>
+            <button type='button' onClick={lookUpBy}>Display current {INDEXED_INPUT_STORE}</button>
+            <input type="text" onChange={(e) => inputChangeDirectState(e, setIndexDbSearch)}/>
             <button type='button' onClick={lookUpByKey}>Console search by Id {indexDbSearch}</button>
         </>
     )
