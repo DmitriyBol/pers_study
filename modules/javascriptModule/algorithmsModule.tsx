@@ -32,9 +32,6 @@ export const AlgoExampleTwo = () => {
         for (let i = 0; i < sample.length; i += 2) {
             result.push(sample[i].concat(sample[i+1]));
         }
-
-        console.log(result);
-
         return result;
     }
 

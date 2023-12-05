@@ -6,6 +6,8 @@ import {summaryExample} from "../modules/javascriptModule/eventLoopModule";
 import {AsyncExampleTwoWithFakeData} from "../modules/javascriptModule/asyncModule";
 import {CookieStoreExample} from "../modules/browserStores/cookieStore";
 import {IndexedDBExample} from "../modules/browserStores/indexedDB";
+import {LocalStoreExample} from "../modules/browserStores/localStore";
+import {FetchDataModuleExample} from "../modules/reactModule/fetchDataModule";
 
 function App() {
   return (
@@ -15,7 +17,10 @@ function App() {
             {/*<ExamplesHOC componentOrFunction={<UseStateHookExample />} label='UseState' />*/}
             {/*<ExamplesHOC componentOrFunction={<AsyncExampleTwoWithFakeData />} needFakeData label='AsyncWithFake' />*/}
             {/*<ExamplesHOC componentOrFunction={<CookieStoreExample />} label='CookieStore' />*/}
-            <ExamplesHOC componentOrFunction={<IndexedDBExample />} />
+            {/*<ExamplesHOC componentOrFunction={<IndexedDBExample />} />*/}
+            {/*<ExamplesHOC componentOrFunction={<LocalStoreExample />} />*/}
+            {/*<ExamplesHOC componentOrFunction={<FetchDataModuleExample />} />*/}
+            <FetchDataModuleExample />
         </>
   )
 }

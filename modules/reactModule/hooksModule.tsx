@@ -1,7 +1,7 @@
-import {useState} from "react";
+import {useState, useTransition} from "react";
 
 /**
- * useState
+ * useState - компонентное хранилище данных, стейта
  * function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
  */
 export const UseStateHookExample = () => {
@@ -18,7 +18,19 @@ export const UseStateHookExample = () => {
 }
 
 /**
- * useEffect
+ * custom useState update hook return state and updater for it
+ * @param propState
+ */
+export const useStateCustom = (propState) => {
+    const [state, setState] = useState(propState);
+    const updateStateFunc = (state) => {
+        setState(state);
+    }
+    return {state, updateStateFunc};
+}
+
+/**
+ * useEffect - подпись на события
  * function useEffect(effect: EffectCallback, deps?: DependencyList): void;
  */
 
@@ -48,4 +60,10 @@ export const UseStateHookExample = () => {
  *         initialState: ReducerState<R>,
  *         initializer?: undefined
  *     ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+ */
+
+/**
+ * useTransition
+ *      Позволяет обновить состояние без блокировки UI.
+ *      function useTransition(): [boolean, TransitionStartFunction];
  */

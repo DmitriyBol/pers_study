@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {cookieStore} from "./cookieEngine/cookieEngine";
+import {cookieStore} from "./storeEngines/storeEngines";
 
 export const CookieStoreExample = () => {
     const [cookieData, setCookieData] = useState('');

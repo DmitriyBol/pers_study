@@ -2,6 +2,8 @@ import defaults from 'store/plugins/defaults';
 import expire from 'store/plugins/expire';
 import cookieStorage from 'store/storages/cookieStorage';
 import storeEngine from 'store/src/store-engine';
+import localStorage from 'store/storages/localStorage';
+import sessionStorage from 'store/storages/sessionStorage';
 
 type CookieStoreType = {
     testKey: string;
@@ -32,4 +34,14 @@ export type CookieStoreEngineType = Pick<StoreJsAPI, 'each' | 'clearAll'> & {
     remove: (key: keyof CookieStoreType) => void;
 };
 
+export type LocalStoreEngineType = Pick<StoreJsAPI, 'each' | 'clearAll'> & {
+    set: <T>(key: T, value: [T]) => void;
+    get: <T, S>(key: T, optionalDefaultValue?: S) => S [T];
+    remove: (key: any) => void;
+};
+
 export const cookieStore = (storeEngine.createStore([cookieStorage], [defaults, expire]) as CookieStoreEngineType);
+
+export const sessionStore = storeEngine.createStore([sessionStorage]);
+
+export const localStore = (storeEngine.createStore([localStorage]) as LocalStoreEngineType);
