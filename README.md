@@ -12,6 +12,7 @@ functions
 HOC (+),
 Hooks (~+),
 custom FetchData (+),
+cached summary decoration (+),
 
 ### TypeScript
 Types

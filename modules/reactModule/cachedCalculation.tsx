@@ -8,39 +8,38 @@ export const CachedCalculation = () => {
     const [number, setNumber] = useState(DEFAULT_VALUE);
     const [responseText, setResponseText] = useState(DEFAULT_TEXT)
 
-    let calculate = (x: number): number => {
-        return x;
+    let calculate = (a: number, b: number): number => {
+        return a + b;
     }
 
     const cachingDecorator = (func: Function) => {
-        return function(x) {
-            console.log('cache', cache)
-
-            if (cache.has(x)) {
+        return function(a, b) {
+            if (cache.has(a + b)) {
                 setNumber(-1);
-                const cachedObj = cache.get(x);
+                const cachedObj = cache.get(a + b);
 
                 setResponseText(
                     `number already exist, returned from cache - ${cachedObj}`
                 )
-                return cache.get(x);
+                return cache.get(a + b);
             }
 
-            let result = func(x);
+            let result = func(a, b);
 
             setNumber(result);
             setResponseText('cached!');
-            cache.set(x, result);
+            cache.set(a + b, result);
             return result;
         };
     }
 
     const onClickHandler = () => {
-        const number = Math.floor(Math.random() * 10);
-        console.log('random 1 to 10 number is', number);
+        const number1 = Math.floor(Math.random() * 10);
+        const number2 = Math.floor(Math.random() * 10);
+        console.log('random 2 numbers', number1, number2);
 
         calculate = cachingDecorator(calculate);
-        calculate(number);
+        calculate(number1, number2);
     }
 
     return (<div>
