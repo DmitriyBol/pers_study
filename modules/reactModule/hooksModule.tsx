@@ -1,4 +1,4 @@
-import {useState, useTransition} from "react";
+import {useEffect, useState, useTransition} from "react";
 
 /**
  * useState - компонентное хранилище данных, стейта
@@ -29,10 +29,60 @@ export const useStateCustom = (propState) => {
     return {state, updateStateFunc};
 }
 
+const DEFAULT_VALUE = 0;
+
 /**
  * useEffect - подпись на события
  * function useEffect(effect: EffectCallback, deps?: DependencyList): void;
  */
+export const UseEffectHookExample = () => {
+    const [number, setNumber] = useState(DEFAULT_VALUE);
+    // with empty deps - renders once then component renders
+    // without deps at all - render on every change
+    // with deps - (re)renders everytime then deps is changed
+
+    // this runs only once (will set number to default value)
+    useEffect(() => {
+        console.log('1');
+        setNumber(DEFAULT_VALUE);
+    }, [])
+
+    // this run on ANY change and first render
+    useEffect(() => {
+        // sync
+        console.log('11');
+        // unmount event
+        return () => {
+            console.log('22');
+        }
+    })
+
+    // this run on deps change and first render
+    useEffect(() => {
+        // sync
+        console.log('111');
+        // unmount event
+        return () => {
+            console.log('222');
+        }
+    }, [number])
+
+    const onClickHandler = () => {
+        console.log('updated');
+        setNumber(prevState => prevState + 1);
+    }
+
+    const onClickResetHandler = () => {
+        console.log('reset');
+        setNumber(DEFAULT_VALUE);
+    }
+
+    return (<div>
+        <h1>{number}</h1>
+        <button type='button' onClick={onClickHandler}>update number</button>
+        <button type='button' onClick={onClickResetHandler}>reset number</button>
+    </div>)
+}
 
 /**
  * useCallback - кеширует функцию, предотвращает ререндер компонента
